@@ -25,53 +25,55 @@ class ArticlesView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: MultiBlocListener(
-        listeners: [
-          BlocListener<ArticlesBloc, ArticlesState>(
-            listenWhen: (previous, current) =>
-                previous.status != current.status,
-            listener: (context, state) {
-              if (state.status == ArticlesStatus.failure) {
-                ScaffoldMessenger.of(context)
-                  ..hideCurrentSnackBar()
-                  ..showSnackBar(
-                    const SnackBar(
-                      content: Text('Error!'),
-                    ),
-                  );
-              }
-            },
-          ),
-        ],
-        child: CustomScrollView(
-          slivers: [
-            const _AppbarArticlePage(),
-            BlocBuilder<ArticlesBloc, ArticlesState>(
-              builder: (context, state) {
-                if (state.status == ArticlesStatus.loading) {
-                  return SliverToBoxAdapter(
-                    child: Container(),
-                  );
+    return SafeArea(
+      child: Scaffold(
+        body: MultiBlocListener(
+          listeners: [
+            BlocListener<ArticlesBloc, ArticlesState>(
+              listenWhen: (previous, current) =>
+                  previous.status != current.status,
+              listener: (context, state) {
+                if (state.status == ArticlesStatus.failure) {
+                  ScaffoldMessenger.of(context)
+                    ..hideCurrentSnackBar()
+                    ..showSnackBar(
+                      const SnackBar(
+                        content: Text('Error!'),
+                      ),
+                    );
                 }
-                if (state.articles.isEmpty) {
-                  return SliverToBoxAdapter(
-                    child: Container(),
-                  );
-                }
-
-                final articles = state.articles;
-                return SliverList(
-                  delegate: SliverChildBuilderDelegate(
-                    (_, index) => ArticleTile(
-                      article: articles[index],
-                    ),
-                    childCount: articles.length
-                  ),
-                );
               },
             ),
           ],
+          child: CustomScrollView(
+            slivers: [
+              const _AppbarArticlePage(),
+              BlocBuilder<ArticlesBloc, ArticlesState>(
+                builder: (context, state) {
+                  if (state.status == ArticlesStatus.loading) {
+                    return SliverToBoxAdapter(
+                      child: Container(),
+                    );
+                  }
+                  if (state.articles.isEmpty) {
+                    return SliverToBoxAdapter(
+                      child: Container(),
+                    );
+                  }
+
+                  final articles = state.articles;
+                  return SliverList(
+                    delegate: SliverChildBuilderDelegate(
+                      (_, index) => ArticleTile(
+                        article: articles[index],
+                      ),
+                      childCount: articles.length
+                    ),
+                  );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -85,12 +87,11 @@ class _AppbarArticlePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SliverAppBar(
       expandedHeight: 64,
-      floating: true,
       titleSpacing: 4,
       title: Row(
         children: [
           const Avatar(radius: 32, username: 'Flutter Developer'),
-          FlutterNewsTheme.separatorH(),
+          FlutterNewsTheme.separatorMH(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

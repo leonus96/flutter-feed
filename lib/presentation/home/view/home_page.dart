@@ -28,7 +28,7 @@ class HomeView extends StatelessWidget {
 
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: IndexedStack(
           index: selectedTab.index,
           children: const [ArticlesPage(), BookmarksPage(), SettingsPage()],
