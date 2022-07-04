@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rss/presentation/articles/bloc/articles_bloc.dart';
@@ -64,10 +63,8 @@ class ArticlesView extends StatelessWidget {
                 final articles = state.articles;
                 return SliverList(
                   delegate: SliverChildBuilderDelegate(
-                    (_, index) => SliverToBoxAdapter(
-                      child: ArticleTile(
-                        article: articles[index],
-                      ),
+                    (_, index) => ArticleTile(
+                      article: articles[index],
                     ),
                   ),
                 );
@@ -86,31 +83,31 @@ class _AppbarArticlePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
-      title: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16.0),
-        child: Row(
-          children: [
-            const SizedBox(height: 50, width: 50, child: Avatar()),
-            FlutterNewsTheme.separatorH(),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  'Welcome Back! 👋',
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodyText1!
-                      .copyWith(color: Colors.grey),
-                ),
-                //TODO: Centralizar colores.
-                Text(
-                  'Flutter Developer',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-              ],
-            ),
-          ],
-        ),
+      expandedHeight: 64,
+      floating: true,
+      titleSpacing: 4,
+      title: Row(
+        children: [
+          const SizedBox(height: 50, width: 50, child: Avatar()),
+          FlutterNewsTheme.separatorH(),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Welcome Back! 👋',
+                style: Theme.of(context)
+                    .textTheme
+                    .bodyText1!
+                    .copyWith(color: Colors.grey),
+              ),
+              //TODO: Centralizar colores.
+              Text(
+                'Flutter Developer',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }
