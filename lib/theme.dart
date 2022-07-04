@@ -22,6 +22,9 @@ class FlutterNewsTheme {
               ),
             ),
           ),
+      bottomAppBarTheme: Theme.of(context).bottomAppBarTheme.copyWith(
+        elevation: 0,
+      )
     );
   }
 

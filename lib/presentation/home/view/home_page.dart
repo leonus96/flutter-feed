@@ -4,8 +4,7 @@ import 'package:flutter_rss/presentation/articles/view/articles_page.dart';
 import 'package:flutter_rss/presentation/bookmarks/view/bookmarks_page.dart';
 import 'package:flutter_rss/presentation/home/cubit/home_cubit.dart';
 import 'package:flutter_rss/presentation/settings/view/settings_page.dart';
-
-import 'package:iconsax/iconsax.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -34,27 +33,37 @@ class HomeView extends StatelessWidget {
           children: const [ArticlesPage(), BookmarksPage(), SettingsPage()],
         ),
       ),
-      bottomNavigationBar: BottomAppBar(
-        shape: const CircularNotchedRectangle(),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: [
-            _HomeTabButton(
-              groupValue: selectedTab,
-              value: HomeTab.articles,
-              icon: const Icon(Iconsax.book),
-            ),
-            _HomeTabButton(
-              groupValue: selectedTab,
-              value: HomeTab.bookmarks,
-              icon: const Icon(Iconsax.bookmark),
-            ),
-            _HomeTabButton(
-              groupValue: selectedTab,
-              value: HomeTab.settings,
-              icon: const Icon(Iconsax.setting_2),
-            ),
-          ],
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+            border: Border.symmetric(
+          horizontal: BorderSide(
+            color: Colors.grey[400]!,
+            width: 0.5,
+          ),
+        )),
+        child: BottomAppBar(
+          elevation: 0,
+          shape: const CircularNotchedRectangle(),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              _HomeTabButton(
+                groupValue: selectedTab,
+                value: HomeTab.articles,
+                icon: const Icon(FontAwesomeIcons.readme),
+              ),
+              _HomeTabButton(
+                groupValue: selectedTab,
+                value: HomeTab.bookmarks,
+                icon: const Icon(FontAwesomeIcons.solidHeart),
+              ),
+              _HomeTabButton(
+                groupValue: selectedTab,
+                value: HomeTab.settings,
+                icon: const Icon(FontAwesomeIcons.sliders),
+              )
+            ],
+          ),
         ),
       ),
     );
@@ -76,8 +85,10 @@ class _HomeTabButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
+      highlightColor: Colors.transparent,
+      splashColor: Colors.transparent,
       onPressed: () => context.read<HomeCubit>().setTab(value),
-      iconSize: 32,
+      iconSize: 24,
       color:
           groupValue != value ? null : Theme.of(context).colorScheme.secondary,
       icon: icon,
