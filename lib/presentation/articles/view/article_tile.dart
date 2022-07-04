@@ -46,7 +46,7 @@ class _CategoriesArticleTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = Theme.of(context).textTheme.caption;
+    final textStyle = Theme.of(context).textTheme.caption!;
     return SizedBox(
       height: 20,
       child: ListView.separated(
@@ -54,14 +54,20 @@ class _CategoriesArticleTile extends StatelessWidget {
         itemBuilder: (BuildContext context, int index) =>
             isFlutter(categories[index])
                 ? Container()
-                : Text(
-                    categories[index].value.toUpperCase(),
-                    style: textStyle,
-                  ),
+                : Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text('#', style: textStyle.copyWith(color: Theme.of(context).colorScheme.primary),),
+                    Text(
+                        categories[index].value.toUpperCase(),
+                        style: textStyle,
+                      ),
+                  ],
+                ),
         separatorBuilder: (BuildContext context, int index) =>
             isFlutter(categories[index])
                 ? Container()
-                : const _MiddlePointerSeparator(),
+                :  FlutterNewsTheme.separatorMH(),
         itemCount: categories.length,
       ),
     );
