@@ -1,12 +1,15 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rss/bootstrap.dart';
-import 'package:flutter_rss/data/dev_to_articles_api/dev_to_articles_api.dart';
+import 'package:flutter_rss/infrastructure/dashatar/dashatar.dart';
+import 'package:flutter_rss/infrastructure/dev_to_articles_api/dev_to_articles_api.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  final articlesApis = [DevToArticlesApi(client: Dio())];
+  final dio = Dio();
+  final articlesApis = [DevToArticlesApi(client: dio)];
+  final dashatar = Dashatar(client: dio);
 
-  bootstrap(articlesApis: articlesApis);
+  bootstrap(articlesApis: articlesApis, avatarService: dashatar);
 }

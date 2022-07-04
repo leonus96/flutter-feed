@@ -89,12 +89,9 @@ class _FooterArticleTile extends StatelessWidget {
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
-              SizedBox(
-                width: 24,
-                height: 24,
-                child: Avatar(
-                  seed: article.dc?.creator,
-                ),
+              Avatar(
+                radius: 16,
+                username: article.dc?.creator,
               ),
               FlutterNewsTheme.separatorMH(),
               Text(

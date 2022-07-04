@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter_rss/repository/articles_repository/articles_repository.dart';
+import 'package:flutter_rss/application/repository/articles_repository/articles_repository.dart';
 import 'package:webfeed/domain/rss_item.dart';
 
 part 'articles_state.dart';

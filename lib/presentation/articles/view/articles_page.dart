@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rss/application/repository/articles_repository/articles_repository.dart';
 import 'package:flutter_rss/presentation/articles/bloc/articles_bloc.dart';
 import 'package:flutter_rss/presentation/articles/view/article_tile.dart';
 import 'package:flutter_rss/presentation/widgets/avatar.dart';
-import 'package:flutter_rss/repository/articles_repository/articles_repository.dart';
 import 'package:flutter_rss/theme.dart';
 
 class ArticlesPage extends StatelessWidget {
@@ -66,6 +66,7 @@ class ArticlesView extends StatelessWidget {
                     (_, index) => ArticleTile(
                       article: articles[index],
                     ),
+                    childCount: articles.length
                   ),
                 );
               },
@@ -88,7 +89,7 @@ class _AppbarArticlePage extends StatelessWidget {
       titleSpacing: 4,
       title: Row(
         children: [
-          const SizedBox(height: 50, width: 50, child: Avatar()),
+          const Avatar(radius: 32, username: 'Flutter Developer'),
           FlutterNewsTheme.separatorH(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,

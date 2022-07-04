@@ -1,18 +1,34 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rss/application/repository/avatar_repository/avatar_repository.dart';
 
-const _kAvatarProvider = 'https://api.multiavatar.com/';
+const kDefaultUsername = 'user_dev';
 
 class Avatar extends StatelessWidget {
-  final String? seed;
+  final double? radius;
+  final String? username;
 
-  const Avatar({Key? key, this.seed}) : super(key: key);
+  const Avatar({Key? key, this.username, this.radius}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Image.network(
-      '$_kAvatarProvider${seed ?? Random().nextInt(100)}.png',
+    final articlesRepository = context.read<AvatarRepository>();
+    return FutureBuilder(
+      future: articlesRepository.getAvatar(username ?? kDefaultUsername),
+      builder: (BuildContext context, AsyncSnapshot<String?> snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.none:
+          case ConnectionState.waiting:
+          case ConnectionState.active:
+            return Container();
+          case ConnectionState.done:
+            return CircleAvatar(
+              backgroundImage: NetworkImage(snapshot.data!),
+              backgroundColor: Colors.transparent,
+              radius: radius,
+            );
+        }
+      },
     );
   }
 }
