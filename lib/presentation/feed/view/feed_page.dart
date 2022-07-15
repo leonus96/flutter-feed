@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rss/application/repository/articles_repository/articles_repository.dart';
-import 'package:flutter_rss/presentation/articles/bloc/articles_bloc.dart';
-import 'package:flutter_rss/presentation/articles/view/article_tile.dart';
+import 'package:flutter_rss/presentation/feed/bloc/articles_bloc.dart';
+import 'package:flutter_rss/presentation/feed/view/feed_item.dart';
 import 'package:flutter_rss/presentation/widgets/avatar.dart';
 import 'package:flutter_rss/theme.dart';
 
-class ArticlesPage extends StatelessWidget {
-  const ArticlesPage({Key? key}) : super(key: key);
+class FeedPage extends StatelessWidget {
+  const FeedPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +64,7 @@ class ArticlesView extends StatelessWidget {
                   final articles = state.articles;
                   return SliverList(
                     delegate: SliverChildBuilderDelegate(
-                      (_, index) => ArticleTile(
+                      (_, index) => FeedItem(
                         article: articles[index],
                       ),
                       childCount: articles.length
@@ -91,7 +91,7 @@ class _AppbarArticlePage extends StatelessWidget {
       title: Row(
         children: [
           const Avatar(radius: 32, username: 'Flutter Developer'),
-          FlutterNewsTheme.separatorMH(),
+          FlutterFeedTheme.separatorMH(),
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [

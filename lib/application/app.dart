@@ -33,8 +33,8 @@ class AppView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      theme: FlutterNewsTheme.light(context),
-      darkTheme: FlutterNewsTheme.dark(context),
+      theme: FlutterFeedTheme.light(context),
+      darkTheme: FlutterFeedTheme.dark(context),
       // localizationsDelegates: AppLocalizations.localizationsDelegates,
       // supportedLocales: AppLocalizations.supportedLocales,
       home: const HomePage(),

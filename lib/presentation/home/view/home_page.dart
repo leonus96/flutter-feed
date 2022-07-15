@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_rss/presentation/articles/view/articles_page.dart';
 import 'package:flutter_rss/presentation/bookmarks/view/bookmarks_page.dart';
+import 'package:flutter_rss/presentation/feed/view/feed_page.dart';
 import 'package:flutter_rss/presentation/home/cubit/home_cubit.dart';
 import 'package:flutter_rss/presentation/settings/view/settings_page.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -30,7 +30,7 @@ class HomeView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: IndexedStack(
           index: selectedTab.index,
-          children: const [ArticlesPage(), BookmarksPage(), SettingsPage()],
+          children: const [FeedPage(), BookmarksPage(), SettingsPage()],
         ),
       ),
       bottomNavigationBar: Container(

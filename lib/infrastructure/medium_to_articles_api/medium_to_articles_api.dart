@@ -25,7 +25,7 @@ class MediumToArticlesApi extends ArticlesApi {
   }
 
   @override
-  String get rssProviderUri => 'https://medium.com/feed/tag/flutter';
+  String get rssProviderUri => 'https://medium.com/feed/flutter';
 
   @override
   Stream<List<RssItem>> getArticles() =>
