@@ -4,7 +4,9 @@ import 'package:flutter_rss/presentation/bookmarks/view/bookmarks_page.dart';
 import 'package:flutter_rss/presentation/feed/view/feed_page.dart';
 import 'package:flutter_rss/presentation/home/cubit/home_cubit.dart';
 import 'package:flutter_rss/presentation/settings/view/settings_page.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:flutter_rss/presentation/user/view/user_page.dart';
+import 'package:iconsax/iconsax.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -30,7 +32,12 @@ class HomeView extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8.0),
         child: IndexedStack(
           index: selectedTab.index,
-          children: const [FeedPage(), BookmarksPage(), SettingsPage()],
+          children: const [
+            FeedPage(),
+            BookmarksPage(),
+            SettingsPage(),
+            UserPage()
+          ],
         ),
       ),
       bottomNavigationBar: Container(
@@ -41,57 +48,31 @@ class HomeView extends StatelessWidget {
             width: 0.5,
           ),
         )),
-        child: BottomAppBar(
-          elevation: 0,
-          shape: const CircularNotchedRectangle(),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _HomeTabButton(
-                groupValue: selectedTab,
-                value: HomeTab.articles,
-                icon: const Icon(FontAwesomeIcons.readme),
-              ),
-              _HomeTabButton(
-                groupValue: selectedTab,
-                value: HomeTab.bookmarks,
-                icon: const Icon(FontAwesomeIcons.solidHeart),
-              ),
-              _HomeTabButton(
-                groupValue: selectedTab,
-                value: HomeTab.settings,
-                icon: const Icon(FontAwesomeIcons.sliders),
-              )
-            ],
-          ),
+        child: SalomonBottomBar(
+          currentIndex: selectedTab.index,
+          onTap: (i) => context.read<HomeCubit>().setTab(HomeTab.values[i]),
+          items: [
+            SalomonBottomBarItem(
+                icon: const Icon(Iconsax.home),
+                title: const Text('Feed'),
+                selectedColor: Colors.blue),
+            SalomonBottomBarItem(
+                icon: const Icon(Iconsax.heart),
+                title: const Text('Bookmarks'),
+                selectedColor: Colors.red),
+            SalomonBottomBarItem(
+              icon: const Icon(Iconsax.setting),
+              title: const Text('Settings'),
+              selectedColor: Colors.green,
+            ),
+            SalomonBottomBarItem(
+              icon: const Icon(Iconsax.user),
+              title: const Text('Settings'),
+              selectedColor: Colors.orange,
+            ),
+          ],
         ),
       ),
-    );
-  }
-}
-
-class _HomeTabButton extends StatelessWidget {
-  const _HomeTabButton({
-    Key? key,
-    required this.groupValue,
-    required this.value,
-    required this.icon,
-  }) : super(key: key);
-
-  final HomeTab groupValue;
-  final HomeTab value;
-  final Widget icon;
-
-  @override
-  Widget build(BuildContext context) {
-    return IconButton(
-      highlightColor: Colors.transparent,
-      splashColor: Colors.transparent,
-      onPressed: () => context.read<HomeCubit>().setTab(value),
-      iconSize: 24,
-      color:
-          groupValue != value ? null : Theme.of(context).colorScheme.secondary,
-      icon: icon,
     );
   }
 }

@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_rss/theme.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:webfeed/domain/rss_item.dart';
 import 'package:webviewx/webviewx.dart';
 
@@ -80,10 +80,8 @@ class _ArticleViewState extends State<_ArticleView>
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(
-              onPressed: () {}, icon: const Icon(FontAwesomeIcons.heart)),
-          IconButton(
-              onPressed: () {}, icon: const Icon(FontAwesomeIcons.shareNodes)),
+          IconButton(onPressed: () {}, icon: const Icon(Iconsax.heart)),
+          IconButton(onPressed: () {}, icon: const Icon(Iconsax.share)),
         ],
       ),
       body: Padding(
