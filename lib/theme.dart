@@ -49,19 +49,18 @@ class FlutterFeedTheme {
   }
 
   static double paddingPxMH = 8.0;
+
   static double paddingPxH = 16.0;
 
-  static SizedBox separatorH() => const SizedBox(
-        width: 16,
-      );
+  static SizedBox separatorH() => const SizedBox(width: 16);
 
-  static SizedBox separatorMH() => const SizedBox(
-        width: 8,
-      );
+  static SizedBox separatorMH() => const SizedBox(width: 8);
 
-  static SizedBox separatorV() => const SizedBox(
-        width: 16,
-      );
+  static SizedBox separatorV() => const SizedBox(width: 16);
+
+  static bool isLight(BuildContext context) {
+    return MediaQuery.of(context).platformBrightness == Brightness.light;
+  }
 }
 
 extension HexColor on Color {

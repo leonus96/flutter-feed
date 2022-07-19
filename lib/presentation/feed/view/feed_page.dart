@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rss/application/repository/articles_repository/articles_repository.dart';
 import 'package:flutter_rss/presentation/feed/bloc/articles_bloc.dart';
 import 'package:flutter_rss/presentation/feed/view/feed_item.dart';
-import 'package:flutter_rss/presentation/widgets/avatar.dart';
 import 'package:flutter_rss/theme.dart';
 
 class FeedPage extends StatelessWidget {
@@ -47,7 +46,6 @@ class ArticlesView extends StatelessWidget {
           ],
           child: CustomScrollView(
             slivers: [
-              const _AppbarArticlePage(),
               BlocBuilder<ArticlesBloc, ArticlesState>(
                 builder: (context, state) {
                   if (state.status == ArticlesStatus.loading) {
@@ -63,12 +61,14 @@ class ArticlesView extends StatelessWidget {
 
                   final articles = state.articles;
                   return SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (_, index) => FeedItem(
-                        article: articles[index],
-                      ),
-                      childCount: articles.length
-                    ),
+                    delegate: SliverChildBuilderDelegate((_, index) {
+                      if (index == 0) {
+                        return const _FeedPageAppBar();
+                      }
+                      return FeedItem(
+                        article: articles[index - 1],
+                      );
+                    }, childCount: articles.length),
                   );
                 },
               ),
@@ -80,34 +80,44 @@ class ArticlesView extends StatelessWidget {
   }
 }
 
-class _AppbarArticlePage extends StatelessWidget {
-  const _AppbarArticlePage({Key? key}) : super(key: key);
+class _FeedPageAppBar extends StatelessWidget {
+  const _FeedPageAppBar({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SliverAppBar(
-      expandedHeight: 64,
-      titleSpacing: 4,
-      title: Row(
+    return SizedBox(
+      height: 96,
+      child: Row(
         children: [
-          const Avatar(radius: 32, username: 'Flutter Developer'),
+          const FlutterLogo(
+            size: 56,
+          ),
           FlutterFeedTheme.separatorMH(),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                'Welcome Back! 👋',
-                style: Theme.of(context)
-                    .textTheme
-                    .bodyText1!
-                    .copyWith(color: Colors.grey),
-              ),
-              //TODO: Centralizar colores.
-              Text(
-                'Flutter Developer',
-                style: Theme.of(context).textTheme.headline6,
-              ),
-            ],
+          SizedBox(
+            height: 72,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Welcome Back! 👋',
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText2!
+                      .copyWith(color: Colors.grey, fontSize: 20),
+                ),
+                Text(
+                  'Flutter Developer',
+                  style: Theme.of(context).textTheme.headline5?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: FlutterFeedTheme.isLight(context)
+                            ? Colors.black
+                            : Colors.white,
+                      ),
+                ),
+              ],
+            ),
           ),
         ],
       ),
